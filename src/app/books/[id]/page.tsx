@@ -8,12 +8,13 @@ declare global {
   interface Window { PaystackPop: any; }
 }
 
-export default function BookPage({ params }: { params: { id: string } }) {
+export default function BookPage({ params }: { params: Promise<{ id: string }> }) {
   const [book, setBook] = useState<any>(null);
   const [user, setUser] = useState<any>(null);
   const [purchased, setPurchased] = useState(false);
   const [loading, setLoading] = useState(true);
   const [paying, setPaying] = useState(false);
+  const [bookId, setBookId] = useState<string>("");
   const router = useRouter();
 
   useEffect(() => {
@@ -22,18 +23,20 @@ export default function BookPage({ params }: { params: { id: string } }) {
     document.head.appendChild(script);
 
     async function load() {
+      const { id } = await params;
+      setBookId(id);
       const { data: { session } } = await supabase.auth.getSession(); const user = session?.user;
       setUser(user);
-      const { data: book } = await supabase.from("books").select("*").eq("id", params.id).single();
+      const { data: book } = await supabase.from("books").select("*").eq("id", id).single();
       setBook(book);
       if (user) {
-        const { data: purchase } = await supabase.from("purchases").select("id").eq("user_id", user.id).eq("book_id", params.id).eq("status", "completed").single();
+        const { data: purchase } = await supabase.from("purchases").select("id").eq("user_id", user.id).eq("book_id", id).eq("status", "completed").single();
         setPurchased(!!purchase);
       }
       setLoading(false);
     }
     load();
-  }, [params.id]);
+  }, []);
 
   async function handleBuy() {
     if (!user) { router.push("/auth/login"); return; }
