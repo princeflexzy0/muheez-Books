@@ -97,7 +97,7 @@ export default function Dashboard() {
                   <span style={{ background: owned ? "#0D2D1A" : "var(--navy)", color: owned ? "#86EFAC" : "var(--amber)", fontSize: 11, fontWeight: 700, padding: "3px 10px", borderRadius: 4 }}>
                     {owned ? "✓ Owned" : "Available"}
                   </span>
-                  <span style={{ fontFamily: "var(--font-playfair)", fontSize: 20, fontWeight: 700, color: "var(--amber)" }}>₦${book.price}</span>
+                  <span style={{ fontFamily: "var(--font-playfair)", fontSize: 20, fontWeight: 700, color: "var(--amber)" }}>₦{book.price}</span>
                 </div>
                 <div style={{ width: "100%", height: 100, background: "linear-gradient(135deg, var(--slate) 0%, var(--navy) 100%)", borderRadius: 8, marginBottom: 14, display: "flex", alignItems: "center", justifyContent: "center" }}>
                   {book.cover_url
@@ -112,7 +112,7 @@ export default function Dashboard() {
                   </div>
                 ) : (
                   <Link href={`/books/${book.id}`} style={{ display: "block", textAlign: "center", background: "var(--amber)", color: "#000", padding: "9px 0", borderRadius: 6, textDecoration: "none", fontWeight: 700, fontSize: 14 }}>
-                    Buy Now — ₦${book.price}
+                    Buy Now — ₦{book.price}
                   </Link>
                 )}
               </div>
