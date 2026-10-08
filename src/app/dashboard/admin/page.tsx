@@ -126,8 +126,8 @@ export default function Admin() {
                   placeholder="The AI Income Blueprint" />
               </div>
               <div>
-                <label style={{ color: "#D1D5DB", fontSize: 13, fontWeight: 500, display: "block", marginBottom: 8 }}>Price (USD) *</label>
-                <input type="number" step="0.01" value={form.price} onChange={e => setForm({ ...form, price: e.target.value })} required
+                <label style={{ color: "#D1D5DB", fontSize: 13, fontWeight: 500, display: "block", marginBottom: 8 }}>Price (Naira) *</label>
+                <input type="number" step="1" value={form.price} onChange={e => setForm({ ...form, price: e.target.value })} required
                   style={{ width: "100%", background: "#0A0E1A", border: "1px solid #374151", borderRadius: 8, padding: "12px 16px", color: "var(--ivory)", fontSize: 14, outline: "none" }}
                   placeholder="3.00" />
               </div>
@@ -175,7 +175,7 @@ export default function Admin() {
               <div>
                 <h3 style={{ fontFamily: "var(--font-playfair)", fontSize: 17, fontWeight: 700, color: "var(--ivory)", marginBottom: 4 }}>{book.title}</h3>
                 <div style={{ display: "flex", gap: 12 }}>
-                  <span style={{ color: "var(--amber)", fontWeight: 700 }}>${book.price}</span>
+                  <span style={{ color: "var(--amber)", fontWeight: 700 }}>₦${book.price}</span>
                   {book.read_online && <span style={{ color: "#86EFAC", fontSize: 12 }}>Read Online</span>}
                   {book.downloadable && <span style={{ color: "#93C5FD", fontSize: 12 }}>Downloadable</span>}
                 </div>

@@ -1,10 +1,10 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM = "MuheezTalks <onboarding@resend.dev>";
+const getResend = () => new Resend(process.env.RESEND_API_KEY);
 
 export async function sendWelcomeEmail(email: string, name: string) {
-  await resend.emails.send({
+  await getResend().emails.send({
     from: FROM,
     to: email,
     subject: "Welcome to MuheezTalks! 🎉",
@@ -24,7 +24,7 @@ export async function sendWelcomeEmail(email: string, name: string) {
 }
 
 export async function sendPurchaseEmail(email: string, name: string, bookTitle: string, amount: number) {
-  await resend.emails.send({
+  await getResend().emails.send({
     from: FROM,
     to: email,
     subject: `You just got: ${bookTitle} 📚`,
@@ -48,7 +48,7 @@ export async function sendPurchaseEmail(email: string, name: string, bookTitle: 
 }
 
 export async function sendPasswordChangeEmail(email: string, name: string) {
-  await resend.emails.send({
+  await getResend().emails.send({
     from: FROM,
     to: email,
     subject: "Your MuheezTalks password was changed",
