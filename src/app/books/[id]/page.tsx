@@ -38,6 +38,16 @@ export default function BookPage() {
   async function handleBuy() {
     if (!user) { router.push("/auth/login"); return; }
     setPaying(true);
+    if (book.price === 0) {
+      const res = await fetch("/api/paystack/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reference: `free_${Date.now()}`, bookId: book.id, userId: user.id, amount: 0 }),
+      });
+      if (res.ok) { setPurchased(true); router.push("/dashboard"); }
+      setPaying(false);
+      return;
+    }
     const handler = window.PaystackPop.setup({
       key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
       email: user.email,
@@ -88,7 +98,7 @@ export default function BookPage() {
               </div>
             ) : (
               <button onClick={handleBuy} disabled={paying} style={{ background: "var(--amber)", color: "#000", padding: "14px 40px", borderRadius: 8, fontWeight: 700, fontSize: 16, border: "none", cursor: "pointer" }}>
-                {paying ? "Processing..." : `Buy for ₦${book.price}`}
+                {paying ? "Processing..." : book.price === 0 ? "Get Free" : `Buy for ₦${book.price}`}
               </button>
             )}
           </div>
