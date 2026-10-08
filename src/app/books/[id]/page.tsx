@@ -1,21 +1,28 @@
-export default   function BookPage() {
+"use client";
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase";
+import { useRouter, useParams } from "next/navigation";
+import Link from "next/link";
+
+declare global { interface Window { PaystackPop: any; } }
+
+export default function BookPage() {
   const [book, setBook] = useState<any>(null);
   const [user, setUser] = useState<any>(null);
   const [purchased, setPurchased] = useState(false);
   const [loading, setLoading] = useState(true);
   const [paying, setPaying] = useState(false);
-  const [bookId, setBookId] = useState<string>("");
   const router = useRouter();
   const params = useParams();
+  const id = params.id as string;
 
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://js.paystack.co/v1/inline.js";
     document.head.appendChild(script);
-
     async function load() {
-      const id = params.id;
-      const { data: { session } } = await supabase.auth.getSession(); const user = session?.user;
+      const { data: { session } } = await supabase.auth.getSession();
+      const user = session?.user;
       setUser(user);
       const { data: book } = await supabase.from("books").select("*").eq("id", id).single();
       setBook(book);
@@ -25,22 +32,16 @@ export default   function BookPage() {
       }
       setLoading(false);
     }
-    load();
-  }, []);
+    if (id) load();
+  }, [id]);
 
   async function handleBuy() {
     if (!user) { router.push("/auth/login"); return; }
     setPaying(true);
-    let ngnRate = 1600;
-    try {
-      const rateRes = await fetch("https://open.er-api.com/v6/latest/USD");
-      const rateData = await rateRes.json();
-      ngnRate = rateData.rates?.NGN || 1600;
-    } catch { ngnRate = 1600; }
     const handler = window.PaystackPop.setup({
       key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
       email: user.email,
-      amount: Math.round(book.price * 100 * ngnRate),
+      amount: Math.round(book.price * 100),
       currency: "NGN",
       ref: `muheez_${Date.now()}`,
       onSuccess: async (transaction: any) => {
@@ -57,27 +58,15 @@ export default   function BookPage() {
     handler.openIframe();
   }
 
-  if (loading) return (
-    <main style={{ minHeight: "100vh", background: "var(--navy)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <div style={{ color: "var(--amber)" }}>Loading...</div>
-    </main>
-  );
-
-  if (!book) return (
-    <main style={{ minHeight: "100vh", background: "var(--navy)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <div style={{ color: "var(--ivory)" }}>Book not found</div>
-    </main>
-  );
+  if (loading) return <main style={{ minHeight: "100vh", background: "var(--navy)", display: "flex", alignItems: "center", justifyContent: "center" }}><div style={{ color: "var(--amber)" }}>Loading...</div></main>;
+  if (!book) return <main style={{ minHeight: "100vh", background: "var(--navy)", display: "flex", alignItems: "center", justifyContent: "center" }}><div style={{ color: "var(--ivory)" }}>Book not found</div></main>;
 
   return (
     <main style={{ minHeight: "100vh", background: "var(--navy)" }}>
       <nav style={{ background: "#0D1120", borderBottom: "1px solid #1E2535", padding: "0 24px", height: 64, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <Link href="/" style={{ fontFamily: "var(--font-playfair)", fontSize: 22, fontWeight: 700, color: "var(--amber)", textDecoration: "none" }}>MuheezTalks</Link>
-        <Link href={user ? "/dashboard" : "/auth/login"} style={{ color: "var(--ivory)", textDecoration: "none", fontSize: 14 }}>
-          {user ? "My Library" : "Login"}
-        </Link>
+        <Link href={user ? "/dashboard" : "/auth/login"} style={{ color: "var(--ivory)", textDecoration: "none", fontSize: 14 }}>{user ? "My Library" : "Login"}</Link>
       </nav>
-
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "64px 24px" }}>
         <Link href="/" style={{ color: "#6B7280", textDecoration: "none", fontSize: 14, marginBottom: 32, display: "block" }}>← Back to store</Link>
         <div style={{ display: "grid", gridTemplateColumns: "280px 1fr", gap: 48, alignItems: "start" }}>
@@ -91,24 +80,15 @@ export default   function BookPage() {
               {book.read_online && <span style={{ background: "#0D2D1A", color: "#86EFAC", padding: "4px 12px", borderRadius: 20, fontSize: 13 }}>📱 Read Online</span>}
               {book.downloadable && <span style={{ background: "#0D1F3C", color: "#93C5FD", padding: "4px 12px", borderRadius: 20, fontSize: 13 }}>⬇️ Downloadable</span>}
             </div>
-            <div style={{ fontFamily: "var(--font-playfair)", fontSize: 40, fontWeight: 700, color: "var(--amber)", marginBottom: 28 }}>${book.price}</div>
+            <div style={{ fontFamily: "var(--font-playfair)", fontSize: 40, fontWeight: 700, color: "var(--amber)", marginBottom: 28 }}>₦{book.price}</div>
             {purchased ? (
               <div style={{ display: "flex", gap: 12 }}>
-                {book.read_online && (
-                  <Link href={`/read/${book.id}`} style={{ background: "var(--amber)", color: "#000", padding: "14px 28px", borderRadius: 8, textDecoration: "none", fontWeight: 700, fontSize: 15 }}>
-                    Read Now
-                  </Link>
-                )}
-                {book.downloadable && (
-                  <Link href={`/api/download/${book.id}`} style={{ background: "#1E2535", color: "var(--ivory)", padding: "14px 28px", borderRadius: 8, textDecoration: "none", fontWeight: 700, fontSize: 15, border: "1px solid #374151" }}>
-                    Download
-                  </Link>
-                )}
+                {book.read_online && <Link href={`/read/${book.id}`} style={{ background: "var(--amber)", color: "#000", padding: "14px 28px", borderRadius: 8, textDecoration: "none", fontWeight: 700, fontSize: 15 }}>Read Now</Link>}
+                {book.downloadable && <Link href={`/api/download/${book.id}`} style={{ background: "#1E2535", color: "var(--ivory)", padding: "14px 28px", borderRadius: 8, textDecoration: "none", fontWeight: 700, fontSize: 15, border: "1px solid #374151" }}>Download</Link>}
               </div>
             ) : (
-              <button onClick={handleBuy} disabled={paying}
-                style={{ background: "var(--amber)", color: "#000", padding: "14px 40px", borderRadius: 8, fontWeight: 700, fontSize: 16, border: "none", cursor: "pointer" }}>
-                {paying ? "Processing..." : `Buy for $${book.price}`}
+              <button onClick={handleBuy} disabled={paying} style={{ background: "var(--amber)", color: "#000", padding: "14px 40px", borderRadius: 8, fontWeight: 700, fontSize: 16, border: "none", cursor: "pointer" }}>
+                {paying ? "Processing..." : `Buy for ₦${book.price}`}
               </button>
             )}
           </div>
