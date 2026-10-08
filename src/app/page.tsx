@@ -186,7 +186,7 @@ export default function Home() {
             <div style={{ display: "flex", gap: 24 }}>
               <Link href="/terms" style={{ color: "#6B7280", textDecoration: "none", fontSize: 13 }}>Terms</Link>
               <Link href="/privacy" style={{ color: "#6B7280", textDecoration: "none", fontSize: 13 }}>Privacy</Link>
-              <Link href="/legal" style={{ color: "#6B7280", textDecoration: "none", fontSize: 13 }}>Legal</Link>
+              <Link href="/legal" style={{ color: "#6B7280", textDecoration: "none", fontSize: 13 }}>Legal</Link><Link href="/support" style={{ color: "#6B7280", textDecoration: "none", fontSize: 13 }}>Support</Link>
               <Link href="/auth/login" style={{ color: "#6B7280", textDecoration: "none", fontSize: 13 }}>Login</Link>
             </div>
           </div>

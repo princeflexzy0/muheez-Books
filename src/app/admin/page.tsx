@@ -15,7 +15,13 @@ export default function Admin() {
 
   useEffect(() => {
     async function load() {
-      await new Promise(r => setTimeout(r, 500)); const { data: { session } } = await supabase.auth.getSession(); const user = session?.user;
+      let { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        await new Promise(r => setTimeout(r, 1500));
+        const r2 = await supabase.auth.getSession();
+        session = r2.data.session;
+      }
+      const user = session?.user;
       if (!user) { router.push("/auth/login"); return; }
       const { data: prof } = await supabase.from("profiles").select("role").eq("id", user.id).single();
       if (prof?.role !== "admin") { router.push("/dashboard"); return; }
