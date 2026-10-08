@@ -29,6 +29,12 @@ export default function Signup() {
         full_name: fullName,
         role: "user",
       });
+      // Send welcome email
+      await fetch("/api/email/welcome", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, name: fullName }),
+      });
     }
     router.push("/dashboard");
   }

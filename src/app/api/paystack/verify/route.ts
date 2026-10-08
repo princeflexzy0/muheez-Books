@@ -41,5 +41,15 @@ export async function POST(req: NextRequest) {
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
+  // Send purchase confirmation email
+  try {
+    const { data: profile } = await getSupabaseAdmin().from("profiles").select("email, full_name").eq("id", userId).single();
+    const { data: book } = await getSupabaseAdmin().from("books").select("title").eq("id", bookId).single();
+    if (profile && book) {
+      const { sendPurchaseEmail } = await import("@/lib/emails");
+      await sendPurchaseEmail(profile.email, profile.full_name || "there", book.title, amount);
+    }
+  } catch (e) { console.error("Purchase email failed:", e); }
+
   return NextResponse.json({ success: true });
 }
