@@ -17,16 +17,7 @@ export default function Login() {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) { setError(error.message); setLoading(false); return; }
 
-    // fetch profile with 4s timeout fallback
-    try {
-      const profilePromise = supabase.from("profiles").select("role").eq("id", data.user.id).single();
-      const timeoutPromise = new Promise(resolve => setTimeout(() => resolve({ data: null }), 4000));
-      const { data: profile } = await Promise.race([profilePromise, timeoutPromise]) as any;
-      if (profile?.role === "admin") window.location.href = "/admin";
-      else window.location.href = "/dashboard";
-    } catch {
-      window.location.href = "/dashboard";
-    }
+    window.location.href = "/dashboard";
   }
 
   return (
