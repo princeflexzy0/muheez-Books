@@ -49,8 +49,10 @@ export default function ReadPage() {
       const { data: { session: s2 } } = await supabase.auth.getSession();
       const token = s2?.access_token || "";
       const res = await fetch(`/api/download/${id}?token=${token}`);
-      if (res.redirected) setUrl(res.url);
-      else setError("Could not load book file.");
+      if (res.ok) {
+        const blob = await res.blob();
+        setUrl(URL.createObjectURL(blob));
+      } else setError("Could not load book file.");
       setLoading(false);
       startTimeRef.current = Date.now();
       intervalRef.current = setInterval(async () => {
