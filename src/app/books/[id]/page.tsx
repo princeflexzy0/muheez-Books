@@ -35,13 +35,19 @@ export default function BookPage({ params }: { params: { id: string } }) {
     load();
   }, [params.id]);
 
-  function handleBuy() {
+  async function handleBuy() {
     if (!user) { router.push("/auth/login"); return; }
     setPaying(true);
+    let ngnRate = 1600;
+    try {
+      const rateRes = await fetch("https://open.er-api.com/v6/latest/USD");
+      const rateData = await rateRes.json();
+      ngnRate = rateData.rates?.NGN || 1600;
+    } catch { ngnRate = 1600; }
     const handler = window.PaystackPop.setup({
       key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
       email: user.email,
-      amount: Math.round(book.price * 100 * 1600),
+      amount: Math.round(book.price * 100 * ngnRate),
       currency: "NGN",
       ref: `muheez_${Date.now()}`,
       onSuccess: async (transaction: any) => {
