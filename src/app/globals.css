@@ -19,3 +19,9 @@ body {
 }
 
 h1, h2, h3, h4 { font-family: var(--font-playfair); }
+
+@media (max-width: 768px) {
+  nav a { font-size: 12px !important; }
+  nav div { gap: 10px !important; }
+  h1 { font-size: clamp(32px, 8vw, 56px) !important; }
+}

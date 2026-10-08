@@ -18,10 +18,10 @@ const reviews = [
 ];
 
 const stats = [
-  { val: "6+", label: "Books Published", icon: "📚" },
-  { val: "500+", label: "Readers", icon: "👥" },
-  { val: "4.9★", label: "Avg Rating", icon: "⭐" },
-  { val: "$3", label: "Starting Price", icon: "💸" },
+  { val: "6+", label: "Books Published", icon: "🗂️" },
+  { val: "500+", label: "Readers", icon: "🌍" },
+  { val: "4.9★", label: "Avg Rating", icon: "🏅" },
+  { val: "$3", label: "Starting Price", icon: "🎯" },
 ];
 
 export default function Home() {
@@ -29,7 +29,7 @@ export default function Home() {
     <main style={{ fontFamily: "var(--font-inter)", overflowX: "hidden" }}>
       {/* NAV */}
       <nav style={{ background: "rgba(10,14,26,0.95)", backdropFilter: "blur(12px)", borderBottom: "1px solid #1E2535", position: "sticky", top: 0, zIndex: 50 }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 64 }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 16px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 64, gap: 8 }}>
           <Link href="/" style={{ fontFamily: "var(--font-playfair)", fontSize: 22, fontWeight: 700, color: "var(--amber)", textDecoration: "none" }}>MuheezTalks</Link>
           <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
             <Link href="#books" style={{ color: "#9CA3AF", textDecoration: "none", fontSize: 14 }}>Books</Link>
@@ -41,7 +41,7 @@ export default function Home() {
       </nav>
 
       {/* HERO */}
-      <section style={{ minHeight: "92vh", display: "flex", alignItems: "center", padding: "80px 24px", maxWidth: 1200, margin: "0 auto", position: "relative" }}>
+      <section style={{ minHeight: "92vh", display: "flex", alignItems: "center", padding: "60px 20px", maxWidth: 1200, margin: "0 auto", position: "relative", width: "100%" }}>
         {/* Background graphic */}
         <div style={{ position: "absolute", right: -100, top: "50%", transform: "translateY(-50%)", width: 600, height: 600, background: "radial-gradient(circle, rgba(245,166,35,0.08) 0%, transparent 70%)", borderRadius: "50%", pointerEvents: "none" }} />
         <div style={{ maxWidth: 680, position: "relative", zIndex: 1 }}>
@@ -55,7 +55,7 @@ export default function Home() {
           <p style={{ fontSize: 18, color: "#9CA3AF", lineHeight: 1.7, marginBottom: 40, maxWidth: 520 }}>
             Practical blueprints on AI, finance, digital products, and mindset — written by Muheez for people ready to move differently.
           </p>
-          <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
             <Link href="/auth/signup" style={{ background: "var(--amber)", color: "#000", padding: "14px 32px", borderRadius: 8, textDecoration: "none", fontWeight: 700, fontSize: 16 }}>
               Start Reading →
             </Link>
@@ -65,7 +65,7 @@ export default function Home() {
           </div>
 
           {/* Stats */}
-          <div style={{ display: "flex", gap: 32, marginTop: 56, flexWrap: "wrap" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16, marginTop: 40 }}>
             {stats.map(({ val, label, icon }) => (
               <div key={label} style={{ display: "flex", alignItems: "center", gap: 12 }}>
                 <div style={{ width: 44, height: 44, background: "var(--slate)", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, border: "1px solid #2D3748" }}>{icon}</div>
@@ -78,13 +78,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Floating book cards graphic */}
-        <div style={{ position: "absolute", right: 0, top: "50%", transform: "translateY(-50%)", display: "flex", flexDirection: "column", gap: 12, opacity: 0.6 }}>
-          {["🧠", "📈", "🤖"].map((e, i) => (
-            <div key={i} style={{ width: 80, height: 100, background: "var(--slate)", borderRadius: 8, border: "1px solid #2D3748", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 32, transform: `translateX(${i * 12}px)` }}>{e}</div>
-          ))}
-        </div>
-      </section>
+        </section>
 
       {/* WHY MUHEEZTALKS */}
       <section style={{ padding: "80px 24px", background: "#0D1120" }}>
