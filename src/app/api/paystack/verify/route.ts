@@ -20,13 +20,24 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  const { error } = await getSupabaseAdmin().from("purchases").upsert({
+  // Check if purchase already exists
+  const { data: existing } = await getSupabaseAdmin()
+    .from("purchases")
+    .select("id")
+    .eq("user_id", userId)
+    .eq("book_id", bookId)
+    .eq("status", "completed")
+    .maybeSingle();
+
+  if (existing) return NextResponse.json({ success: true });
+
+  const { error } = await getSupabaseAdmin().from("purchases").insert({
     user_id: userId,
     book_id: bookId,
     amount,
     paystack_ref: reference,
     status: "completed",
-  }, { onConflict: "user_id,book_id", ignoreDuplicates: true });
+  });
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
