@@ -79,7 +79,7 @@ export default function Dashboard() {
                 <h3 style={{ fontFamily: "var(--font-playfair)", fontSize: 15, fontWeight: 700, color: "var(--ivory)", marginBottom: 14, lineHeight: 1.4 }}>{p.books?.title}</h3>
                 <div style={{ display: "flex", gap: 8 }}>
                   {p.books?.read_online && <Link href={`/read/${p.books.id}`} style={{ flex: 1, textAlign: "center", background: "var(--amber)", color: "#000", padding: "8px 0", borderRadius: 6, textDecoration: "none", fontWeight: 600, fontSize: 13 }}>Read</Link>}
-                  {p.books?.downloadable && <Link href={`/api/download/${p.books.id}`} style={{ flex: 1, textAlign: "center", background: "var(--navy)", color: "var(--ivory)", padding: "8px 0", borderRadius: 6, textDecoration: "none", fontWeight: 600, fontSize: 13, border: "1px solid #374151" }}>Download</Link>}
+                  {p.books?.downloadable && <a href="#" onClick={async (e) => { e.preventDefault(); const { data: { session: ds } } = await supabase.auth.getSession(); window.location.href = `/api/download/${p.books.id}?token=${ds?.access_token}`; }} style={{ flex: 1, textAlign: "center", background: "var(--navy)", color: "var(--ivory)", padding: "8px 0", borderRadius: 6, textDecoration: "none", fontWeight: 600, fontSize: 13, border: "1px solid #374151", cursor: "pointer" }}>Download</a>}
                 </div>
               </div>
             ))}
@@ -108,7 +108,7 @@ export default function Dashboard() {
                 {owned ? (
                   <div style={{ display: "flex", gap: 8 }}>
                     {book.read_online && <Link href={`/read/${book.id}`} style={{ flex: 1, textAlign: "center", background: "var(--amber)", color: "#000", padding: "8px 0", borderRadius: 6, textDecoration: "none", fontWeight: 600, fontSize: 13 }}>Read</Link>}
-                    {book.downloadable && <Link href={`/api/download/${book.id}`} style={{ flex: 1, textAlign: "center", background: "var(--navy)", color: "var(--ivory)", padding: "8px 0", borderRadius: 6, textDecoration: "none", fontWeight: 600, fontSize: 13, border: "1px solid #374151" }}>Download</Link>}
+                    {book.downloadable && <a href="#" onClick={async (e) => { e.preventDefault(); const { data: { session: ds } } = await supabase.auth.getSession(); window.location.href = `/api/download/${book.id}?token=${ds?.access_token}`; }} style={{ flex: 1, textAlign: "center", background: "var(--navy)", color: "var(--ivory)", padding: "8px 0", borderRadius: 6, textDecoration: "none", fontWeight: 600, fontSize: 13, border: "1px solid #374151", cursor: "pointer" }}>Download</a>}
                   </div>
                 ) : (
                   <Link href={`/books/${book.id}`} style={{ display: "block", textAlign: "center", background: "var(--amber)", color: "#000", padding: "9px 0", borderRadius: 6, textDecoration: "none", fontWeight: 700, fontSize: 14 }}>

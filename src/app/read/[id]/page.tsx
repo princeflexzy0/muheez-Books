@@ -46,7 +46,9 @@ export default function ReadPage() {
       if (!book) { setError("Book not found."); setLoading(false); return; }
       if (!book.read_online) { setError("This book is not available for online reading."); setLoading(false); return; }
       setBook(book);
-      const res = await fetch(`/api/download/${id}`);
+      const { data: { session: s2 } } = await supabase.auth.getSession();
+      const token = s2?.access_token || "";
+      const res = await fetch(`/api/download/${id}?token=${token}`);
       if (res.redirected) setUrl(res.url);
       else setError("Could not load book file.");
       setLoading(false);
@@ -86,7 +88,7 @@ export default function ReadPage() {
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           {sessionMins > 0 && <span style={{ fontSize: 12, color: "#6B7280" }}>⏱ {sessionMins}m</span>}
           {pointsEarned > 0 && <span style={{ fontSize: 12, color: "var(--amber)", fontWeight: 600 }}>+{pointsEarned}pts</span>}
-          <Link href={`/api/download/${id}`} style={{ color: "#6B7280", textDecoration: "none", fontSize: 13 }}>Download ⬇️</Link>
+          <a href="#" onClick={async (e) => { e.preventDefault(); const { data: { session: ds } } = await supabase.auth.getSession(); window.location.href = `/api/download/${id}?token=${ds?.access_token}`; }} style={{ color: "#6B7280", textDecoration: "none", fontSize: 13 }}>Download ⬇️</a>
         </div>
       </nav>
       <iframe src={url} style={{ flex: 1, width: "100%", border: "none", minHeight: "calc(100vh - 56px)" }} title={book?.title} />

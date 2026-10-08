@@ -8,15 +8,15 @@ const getSupabaseAdmin = () => createClient(
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ bookId: string }> }) {
   const { bookId } = await params;
-  const authHeader = req.headers.get("cookie") || "";
+  const authHeader = req.headers.get("authorization") || "";
+  const token = authHeader.replace("Bearer ", "") || req.nextUrl.searchParams.get("token") || "";
 
   const supabaseUser = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    { global: { headers: { cookie: authHeader } } }
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   );
 
-  const { data: { user } } = await supabaseUser.auth.getUser();
+  const { data: { user } } = await supabaseUser.auth.getUser(token);
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { data: profile } = await getSupabaseAdmin().from("profiles").select("role").eq("id", user.id).single();
