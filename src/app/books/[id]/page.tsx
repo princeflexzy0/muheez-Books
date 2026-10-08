@@ -78,7 +78,7 @@ export default function BookPage() {
         <Link href={user ? "/dashboard" : "/auth/login"} style={{ color: "var(--ivory)", textDecoration: "none", fontSize: 14 }}>{user ? "My Library" : "Login"}</Link>
       </nav>
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "64px 24px" }}>
-        <Link href="/" style={{ color: "#6B7280", textDecoration: "none", fontSize: 14, marginBottom: 32, display: "block" }}>← Back to store</Link>
+        <Link href="/store" style={{ color: "#6B7280", textDecoration: "none", fontSize: 14, marginBottom: 32, display: "block" }}>← Back to store</Link>
         <div style={{ display: "grid", gridTemplateColumns: "280px 1fr", gap: 48, alignItems: "start" }}>
           <div style={{ background: "linear-gradient(135deg, #1a2040 0%, #0A0E1A 100%)", borderRadius: 12, height: 360, display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid #2D3748" }}>
             {book.cover_url ? <img src={book.cover_url} alt={book.title} style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 12 }} /> : <span style={{ fontSize: 64 }}>📖</span>}
