@@ -1,5 +1,8 @@
 "use client";
 import Link from "next/link";
+import { useEffect } from "react";
+import { supabase } from "@/lib/supabase";
+import { useRouter } from "next/navigation";
 
 const books = [
   { id: 1, title: "The Psychology of Messages", price: "₦4,500", tag: "Bestseller", emoji: "🧠", color: "#2D1B69" },
@@ -24,7 +27,17 @@ const stats = [
   { val: "$3", label: "Starting Price", icon: "🎯" },
 ];
 
+function useAuthRedirect() {
+  const router = useRouter();
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) router.push("/dashboard");
+    });
+  }, []);
+}
+
 export default function Home() {
+  useAuthRedirect();
   return (
     <main style={{ fontFamily: "var(--font-inter)", overflowX: "hidden" }}>
       {/* NAV */}
