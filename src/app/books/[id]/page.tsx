@@ -1,4 +1,4 @@
-export default   function BookPage(() {
+export default   function BookPage() {
   const [book, setBook] = useState<any>(null);
   const [user, setUser] = useState<any>(null);
   const [purchased, setPurchased] = useState(false);

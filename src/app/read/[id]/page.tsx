@@ -1,4 +1,4 @@
-export default   function ReadPage(() {
+export default   function ReadPage() {
   const [url, setUrl] = useState("");
   const [book, setBook] = useState<any>(null);
   const [loading, setLoading] = useState(true);
