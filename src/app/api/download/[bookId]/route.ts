@@ -6,9 +6,10 @@ const supabaseAdmin = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-export async function GET(req: NextRequest, { params }: { params: { bookId: string } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ bookId: string }> }) {
+  const { bookId } = await params;
   const authHeader = req.headers.get("cookie") || "";
-  
+
   const supabaseUser = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -25,14 +26,13 @@ export async function GET(req: NextRequest, { params }: { params: { bookId: stri
       .from("purchases")
       .select("id")
       .eq("user_id", user.id)
-      .eq("book_id", params.bookId)
+      .eq("book_id", bookId)
       .eq("status", "completed")
       .single();
-
     if (!purchase) return NextResponse.json({ error: "Purchase required" }, { status: 403 });
   }
 
-  const { data: book } = await supabaseAdmin.from("books").select("file_url, title").eq("id", params.bookId).single();
+  const { data: book } = await supabaseAdmin.from("books").select("file_url, title").eq("id", bookId).single();
   if (!book) return NextResponse.json({ error: "Book not found" }, { status: 404 });
 
   const { data, error } = await supabaseAdmin.storage.from("books").createSignedUrl(book.file_url, 60);
