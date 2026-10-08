@@ -9,14 +9,15 @@ const getSupabaseAdmin = () => createClient(
 export async function POST(req: NextRequest) {
   const { reference, bookId, userId, amount } = await req.json();
 
-  const verify = await fetch(`https://api.paystack.co/transaction/verify/${reference}`, {
-    headers: { Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}` },
-  });
-
-  const result = await verify.json();
-
-  if (!result.status || result.data.status !== "success") {
-    return NextResponse.json({ error: "Payment verification failed" }, { status: 400 });
+  // Free book — skip Paystack verification
+  if (!reference.startsWith("free_")) {
+    const verify = await fetch(`https://api.paystack.co/transaction/verify/${reference}`, {
+      headers: { Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}` },
+    });
+    const result = await verify.json();
+    if (!result.status || result.data.status !== "success") {
+      return NextResponse.json({ error: "Payment verification failed" }, { status: 400 });
+    }
   }
 
   const { error } = await getSupabaseAdmin().from("purchases").upsert({
