@@ -4,7 +4,7 @@ export default function Terms() {
   return (
     <main style={{ minHeight: "100vh", background: "var(--navy)", padding: "80px 24px" }}>
       <div style={{ maxWidth: 720, margin: "0 auto" }}>
-        <Link href="/" style={{ fontFamily: "var(--font-playfair)", fontSize: 22, fontWeight: 700, color: "var(--amber)", textDecoration: "none", display: "block", marginBottom: 48 }}>← MuheezTalks</Link>
+        <Link href="/store" style={{ fontFamily: "var(--font-playfair)", fontSize: 22, fontWeight: 700, color: "var(--amber)", textDecoration: "none", display: "block", marginBottom: 48 }}>← MuheezTalks</Link>
         <h1 style={{ fontFamily: "var(--font-playfair)", fontSize: 40, fontWeight: 700, color: "var(--ivory)", marginBottom: 12 }}>Terms of Service</h1>
         <p style={{ color: "#6B7280", marginBottom: 48, fontSize: 14 }}>Last updated: January 2026</p>
 

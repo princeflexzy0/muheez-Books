@@ -43,7 +43,7 @@ export default function Dashboard() {
   return (
     <main style={{ minHeight: "100vh", background: "var(--navy)" }}>
       <nav style={{ background: "var(--slate)", borderBottom: "1px solid #2D3748", padding: "0 24px", height: 64, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <Link href="/" style={{ fontFamily: "var(--font-playfair)", fontSize: 22, fontWeight: 700, color: "var(--amber)", textDecoration: "none" }}>MuheezTalks</Link>
+        <Link href="/store" style={{ fontFamily: "var(--font-playfair)", fontSize: 22, fontWeight: 700, color: "var(--amber)", textDecoration: "none" }}>MuheezTalks</Link>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <span style={{ color: "var(--muted)", fontSize: 14 }}>Hi, {profile?.full_name?.split(" ")[0] || "Reader"} 👋</span>
           {isAdmin && (

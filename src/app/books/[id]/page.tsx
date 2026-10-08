@@ -74,7 +74,7 @@ export default function BookPage() {
   return (
     <main style={{ minHeight: "100vh", background: "var(--navy)" }}>
       <nav style={{ background: "#0D1120", borderBottom: "1px solid #1E2535", padding: "0 24px", height: 64, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <Link href="/" style={{ fontFamily: "var(--font-playfair)", fontSize: 22, fontWeight: 700, color: "var(--amber)", textDecoration: "none" }}>MuheezTalks</Link>
+        <Link href="/store" style={{ fontFamily: "var(--font-playfair)", fontSize: 22, fontWeight: 700, color: "var(--amber)", textDecoration: "none" }}>MuheezTalks</Link>
         <Link href={user ? "/dashboard" : "/auth/login"} style={{ color: "var(--ivory)", textDecoration: "none", fontSize: 14 }}>{user ? "My Library" : "Login"}</Link>
       </nav>
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "64px 24px" }}>
