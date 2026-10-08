@@ -2,12 +2,12 @@
 import Link from "next/link";
 
 const books = [
-  { id: 1, title: "The Psychology of Messages", price: "$3", tag: "Bestseller", emoji: "🧠", color: "#2D1B69" },
-  { id: 2, title: "The Dangote IPO Opportunity", price: "$3", tag: "Finance", emoji: "📈", color: "#1B3A2D" },
-  { id: 3, title: "The AI Income Blueprint", price: "$14.75", tag: "🔥 Hot", emoji: "🤖", color: "#2D1B1B" },
-  { id: 4, title: "The ₦1 Million Digital Products Blueprint", price: "$3", tag: "Digital", emoji: "💻", color: "#1B2D3A" },
-  { id: 5, title: "The AI Advantages", price: "$3", tag: "AI", emoji: "⚡", color: "#2D2A1B" },
-  { id: 6, title: "How to Make Your First 100,000 Naira", price: "$3", tag: "Money", emoji: "💰", color: "#1B2D1B" },
+  { id: 1, title: "The Psychology of Messages", price: "₦4,500", tag: "Bestseller", emoji: "🧠", color: "#2D1B69" },
+  { id: 2, title: "The Dangote IPO Opportunity", price: "₦4,500", tag: "Finance", emoji: "📈", color: "#1B3A2D" },
+  { id: 3, title: "The AI Income Blueprint", price: "₦22,000", tag: "🔥 Hot", emoji: "🤖", color: "#2D1B1B" },
+  { id: 4, title: "The ₦1 Million Digital Products Blueprint", price: "₦4,500", tag: "Digital", emoji: "💻", color: "#1B2D3A" },
+  { id: 5, title: "The AI Advantages", price: "₦4,500", tag: "AI", emoji: "⚡", color: "#2D2A1B" },
+  { id: 6, title: "How to Make Your First 100,000 Naira", price: "₦4,500", tag: "Money", emoji: "💰", color: "#1B2D1B" },
 ];
 
 const reviews = [

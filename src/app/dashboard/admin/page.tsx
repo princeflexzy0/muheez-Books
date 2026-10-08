@@ -103,7 +103,7 @@ export default function Admin() {
     <main style={{ minHeight: "100vh", background: "var(--navy)" }}>
       <nav style={{ background: "#0D1120", borderBottom: "1px solid #1E2535", padding: "0 24px", height: 64, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <span style={{ fontFamily: "var(--font-playfair)", fontSize: 22, fontWeight: 700, color: "var(--amber)" }}>MuheezTalks Admin</span>
-        <Link href="/analytics" style={{ color: "#6B7280", fontSize: 13, textDecoration: "none", marginRight: 16 }}>Analytics</Link><Link href="/settings" style={{ color: "#6B7280", fontSize: 13, textDecoration: "none", marginRight: 16 }}>Settings</Link><button onClick={handleLogout} style={{ background: "transparent", border: "1px solid #374151", color: "var(--ivory)", padding: "7px 16px", borderRadius: 6, cursor: "pointer", fontSize: 13 }}>
+        <Link href="/dashboard" style={{ color: "#6B7280", fontSize: 13, textDecoration: "none", marginRight: 16 }}>← Dashboard</Link><Link href="/settings" style={{ color: "#6B7280", fontSize: 13, textDecoration: "none", marginRight: 16 }}>Settings</Link><button onClick={handleLogout} style={{ background: "transparent", border: "1px solid #374151", color: "var(--ivory)", padding: "7px 16px", borderRadius: 6, cursor: "pointer", fontSize: 13 }}>
           Logout
         </button>
       </nav>
