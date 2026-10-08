@@ -71,7 +71,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ book
     });
   }
 
-  const watermarkedBytes = await pdfDoc.save();
+  const watermarkedBytes = Buffer.from(await pdfDoc.save());
   const filename = book.title.replace(/[^a-z0-9]/gi, "_").toLowerCase();
 
   return new NextResponse(watermarkedBytes, {

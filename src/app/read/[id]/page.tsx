@@ -82,9 +82,9 @@ export default function ReadPage() {
 
   return (
     <main style={{ minHeight: "100vh", background: "#0D1120", display: "flex", flexDirection: "column" }}>
-      <nav style={{ background: "var(--navy)", borderBottom: "1px solid #1E2535", padding: "0 24px", height: 56, display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 }}>
+      <nav style={{ background: "#0A0E1A", borderBottom: "2px solid var(--amber)", padding: "0 24px", height: 60, display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 }}>
         <Link href="/dashboard" style={{ color: "var(--amber)", textDecoration: "none", fontSize: 14 }}>← My Library</Link>
-        <span style={{ fontFamily: "var(--font-playfair)", color: "var(--ivory)", fontSize: 15, fontWeight: 600 }}>{book?.title}</span>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}><span style={{ fontFamily: "var(--font-playfair)", color: "var(--amber)", fontSize: 16, fontWeight: 700, letterSpacing: 1 }}>MuheezTalks</span><span style={{ color: "var(--ivory)", fontSize: 11, opacity: 0.7 }}>📖 {book?.title}</span></div>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           {sessionMins > 0 && <span style={{ fontSize: 12, color: "#6B7280" }}>⏱ {sessionMins}m</span>}
           {pointsEarned > 0 && <span style={{ fontSize: 12, color: "var(--amber)", fontWeight: 600 }}>+{pointsEarned}pts</span>}
