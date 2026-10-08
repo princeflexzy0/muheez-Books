@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
     amount,
     paystack_ref: reference,
     status: "completed",
-  }, { onConflict: "paystack_ref" });
+  }, { onConflict: "user_id,book_id", ignoreDuplicates: true });
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 

@@ -27,7 +27,7 @@ export default function BookPage() {
       const { data: book } = await supabase.from("books").select("*").eq("id", id).single();
       setBook(book);
       if (user) {
-        const { data: purchase } = await supabase.from("purchases").select("id").eq("user_id", user.id).eq("book_id", id).eq("status", "completed").single();
+        const { data: purchase } = await supabase.from("purchases").select("id").eq("user_id", user.id).eq("book_id", id).eq("status", "completed").maybeSingle();
         setPurchased(!!purchase);
       }
       setLoading(false);
