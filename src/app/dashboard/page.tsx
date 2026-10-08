@@ -47,7 +47,7 @@ export default function Dashboard() {
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <span style={{ color: "var(--muted)", fontSize: 14 }}>Hi, {profile?.full_name?.split(" ")[0] || "Reader"} 👋</span>
           {isAdmin && (
-            <Link href="/admin" style={{ background: "var(--amber)", color: "#000", padding: "5px 14px", borderRadius: 6, fontSize: 12, fontWeight: 700, textDecoration: "none" }}>
+            <Link href="/dashboard/admin" style={{ background: "var(--amber)", color: "#000", padding: "5px 14px", borderRadius: 6, fontSize: 12, fontWeight: 700, textDecoration: "none" }}>
               ⚙️ Admin
             </Link>
           )}
