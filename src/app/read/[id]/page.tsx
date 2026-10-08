@@ -14,7 +14,7 @@ export default function ReadPage({ params }: { params: { id: string } }) {
   const router = useRouter();
 
   const userRef = useRef<any>(null);
-  const startTimeRef = useRef<number>(Date.now());
+  const startTimeRef = useRef<number>(0);
   const savedMinsRef = useRef<number>(0);
   const intervalRef = useRef<any>(null);
 
@@ -64,7 +64,7 @@ export default function ReadPage({ params }: { params: { id: string } }) {
       else setError("Could not load book file.");
       setLoading(false);
 
-      startTimeRef.current = Date.now();
+      startTimeRef.current = Date.now(); // set on mount
 
       intervalRef.current = setInterval(async () => {
         const elapsed = Math.floor((Date.now() - startTimeRef.current) / 60000);
