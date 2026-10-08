@@ -1,14 +1,4 @@
-"use client";
-import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-
-declare global {
-  interface Window { PaystackPop: any; }
-}
-
-export default function BookPage({ params }: { params: { id: string } }) {
+export default   function BookPage(() {
   const [book, setBook] = useState<any>(null);
   const [user, setUser] = useState<any>(null);
   const [purchased, setPurchased] = useState(false);
@@ -16,6 +6,7 @@ export default function BookPage({ params }: { params: { id: string } }) {
   const [paying, setPaying] = useState(false);
   const [bookId, setBookId] = useState<string>("");
   const router = useRouter();
+  const params = useParams();
 
   useEffect(() => {
     const script = document.createElement("script");

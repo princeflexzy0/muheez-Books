@@ -1,10 +1,4 @@
-"use client";
-import { useEffect, useState, useRef } from "react";
-import { supabase } from "@/lib/supabase";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-
-export default function ReadPage({ params }: { params: { id: string } }) {
+export default   function ReadPage(() {
   const [url, setUrl] = useState("");
   const [book, setBook] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -12,6 +6,7 @@ export default function ReadPage({ params }: { params: { id: string } }) {
   const [sessionMins, setSessionMins] = useState(0);
   const [pointsEarned, setPointsEarned] = useState(0);
   const router = useRouter();
+  const params = useParams();
 
   const userRef = useRef<any>(null);
   const startTimeRef = useRef<number>(0);
